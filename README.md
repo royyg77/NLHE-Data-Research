@@ -8,6 +8,8 @@ NLHE Data Research is an ongoing poker research project for studying No-Limit Ho
 
 The repository is designed as a reusable research workflow rather than a one-off analysis. SQL scripts are used to extract and structure analysis-ready datasets from the PT4 schema, while Python notebooks are used for statistical analysis, visualization, and longer-form reporting. As more hands are collected over time, the project can be extended with new studies, refined board-texture definitions, additional street-level analysis, and broader population research questions.
 
+---
+
 ## Getting Started
 
 ### Dependencies
