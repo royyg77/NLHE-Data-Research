@@ -59,8 +59,7 @@ Step 1: Run SQL scripts
 ```
 01_pool_overview.sql
 02_flop_cbet_strategy_by_texture.sql
-03_flop_cbet_size_by_stake.sql
-04_texture_frequency.sql
+03_texture_frequency.sql
 ```
 
 Step 2: Export outputs
