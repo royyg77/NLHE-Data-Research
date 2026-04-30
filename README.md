@@ -1,12 +1,41 @@
 # NLHE Data Research
 
+A modular research framework for studying No-Limit Hold’em population tendencies using hand-history data from a PokerTracker 4 PostgreSQL database.
+
+
+## Overview
+
+This project is designed as a reusable research workflow. SQL scripts extract and structure analysis-ready datasets from the PT4 schema, while Python notebooks handle statistical analysis, visualization, and reporting.
+
+The framework is built to grow over time. Each study targets a specific part of the game tree — such as a street, decision node, or board-texture class — and follows a consistent pipeline: SQL extraction → CSV export → notebook analysis. New studies can be added as the project expands into additional situations, deeper street-level breakdowns, and more granular texture classifications.
+
+
 ---
 
-## Description
+## Studies
 
-NLHE Data Research is an ongoing poker research project for studying No-Limit Hold'em (NLHE) population tendencies using hand-history data stored in a PokerTracker 4 (PT4) PostgreSQL database.
+| Version | Focus | Status |
+|---------|-------|--------|
+| [v1.0](docs/v1_0/analysis.md) | Flop continuation-bet strategy and board texture frequency | Complete |
 
-The repository is designed as a reusable research workflow rather than a one-off analysis. SQL scripts are used to extract and structure analysis-ready datasets from the PT4 schema, while Python notebooks are used for statistical analysis, visualization, and longer-form reporting. As more hands are collected over time, the project can be extended with new studies, refined board-texture definitions, additional street-level analysis, and broader population research questions.
+---
+
+## Project Structure
+
+```
+NLHE-Data-Research/
+├── sql/              # SQL extraction scripts, organized by version
+│   └── v1_0/
+├── notebooks/        # Jupyter notebooks for analysis and reporting
+│   └── v1_0/
+├── results/          # Exported CSVs and outputs
+│   └── v1_0/
+├── docs/             # Writeup
+│   └── v1_0/
+└── README.md
+```
+
+Each study version follows the same layout: SQL scripts in `sql/`, notebooks in `notebooks/`, and exported data in `results/`.
 
 ---
 
@@ -14,27 +43,26 @@ The repository is designed as a reusable research workflow rather than a one-off
 
 ### Dependencies
 
-This project assumes access to a local PokerTracker 4 PostgreSQL relational database and a working Python environment. 
+This project assumes access to a local PokerTracker 4 PostgreSQL database and a working Python environment.
 
-Required tools: 
+Required tools:
 - PostgreSQL / PokerTracker 4 database access
-- DBeaver (recommended) or another SQL client 
+- DBeaver (recommended) or another SQL client
 - Python 3
-- Jupyter Notebook or VS Code notebook support 
+- Jupyter Notebook or VS Code notebook support
 
-Typical Python libraries used in the analysis stage: 
+Python libraries used in the analysis stage:
 - pandas
 - numpy
 - matplotlib
-- seaborn 
-- scipy
+- seaborn
 
-### Installing 
+### Installation
 
 1. Clone the repository
 
 ```
-git clone <your-repo-url>
+git clone https://github.com/royyg77/NLHE-Data-Research.git
 cd NLHE-Data-Research
 ```
 
@@ -42,41 +70,27 @@ cd NLHE-Data-Research
 
 Open your SQL client and connect to the PostgreSQL instance that contains your PokerTracker 4 database.
 
-3. Prepare a Python environment 
+3. Prepare a Python environment
 
 ```
 python -m venv .venv
 source .venv/bin/activate
-pip install pandas numpy matplotlib seaborn scipy jupyter
+pip install pandas numpy matplotlib seaborn jupyter
 ```
 
-### Executing the Project
+### Running a Study
 
-Execute the SQL files in sql/v1_0/ against your PT4 database.
+Each study follows the same workflow. Using v1.0 as an example:
 
-Step 1: Run SQL scripts
+**Step 1:** Run the SQL scripts in `sql/v1_0/` against your PT4 database.
 
-```
-01_pool_overview.sql
-02_flop_cbet_strategy_by_texture.sql
-03_texture_frequency.sql
-```
+**Step 2:** Export each result set to CSV and save into `results/v1_0/`.
 
-Step 2: Export outputs
+**Step 3:** Open the notebook in `notebooks/v1_0/` and load the exported CSVs for analysis.
 
-Export each result set to CSV and save into:
+---
 
-`results/v1_0/`
-
-Open the notebook in:
-
-`notebook/v1_0/`
-
-Load the exported CSV files for statistical analysis, visualization, and report generation.
-
---- 
-
-## Help 
+## Help
 
 Common issues:
 - If SQL queries fail unexpectedly in DBeaver, ensure blank lines are not being treated as statement delimiters.
@@ -91,19 +105,6 @@ For questions about the project or collaboration opportunities, contact royguo77
 
 ---
 
-## Version History 
+## License
 
-- v1.0
-    - Initial SQL layer for pool overview, flop c-bet strategy by texture, c-bet sizing extract, and texture frequency outputs
-    - Initial results export workflow
-    - Python analysis and report layer 
-
----
-
-## License 
-
-License information to be added. 
-
-
-
-
+License information to be added.
