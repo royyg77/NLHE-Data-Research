@@ -16,7 +16,7 @@ The framework is built to grow over time. Each study targets a specific part of 
 
 | Version | Focus | Status |
 |---------|-------|--------|
-| [v1.0](docs/v1_0/analysis.md) | Flop continuation-bet strategy and board texture frequency | Complete |
+| [v1.0](docs/v1_0/analysis.md) | Flop continuation-bet strategy by board texture | Complete |
 
 ---
 

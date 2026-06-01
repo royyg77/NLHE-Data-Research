@@ -1,10 +1,12 @@
-# Introduction
+# Flop C-Bet Strategy by Texture in SRPs
+
+## Introduction
 
 This study examines flop continuation-bet strategy in single-raised pots (SRPs) using hand-history data stored in a PokerTracker 4 PostgreSQL database. The focus of version 1 is to analyze how flop c-bet behavior varies by board texture across pooled microstakes (2nl, 5nl, and 10nl) data.
 
 The main strategy question is split into two related components: how often the pool continuation-bets on a given texture, and how the pool distributes its c-bet sizings once it chooses to bet. Board texture is defined using pairedness and suitedness, while the final grouped strategy outputs are segmented by blind level, relative position, and heads-up versus multiway flop context.
 
-# Key Takeaways
+## Key Takeaways
 
 - Position is the dominant driver of flop c-bet frequency. Across every stake and texture, IP c-bet frequency exceeds OOP by 10–17 percentage points. Wilson 95% CIs do not overlap between IP and OOP within any high-sample texture — the position effect is statistically clean, not a sampling artifact.
 
@@ -17,7 +19,7 @@ The main strategy question is split into two related components: how often the p
 - Texture frequencies are nearly identical across the 2nl, 5nl, and 10nl pools, but SRP flop-seen rates differ enough that downstream strategy comparisons should account for different preflop range compositions.
 
 
-# Part 1: Pool Overview
+## Part 1: Pool Overview
 
 The pool covers 130,050 hands at 2nl, 42,082 at 5nl, 54,340 at 10nl, and 12,953 at 30nl. Stake-level samples are uneven, and 30nl in particular sits close to the 10,000-hand inclusion threshold — its frequencies should be read with more caution than the others. SRPs dominate raised preflop action across all stakes (roughly 80%+), followed by 3BPs, with 4BP+ pots making up a small share.
 
@@ -30,7 +32,7 @@ One anomaly worth flagging: 10nl shows the highest multiway flop rate in the sam
 Although 30nl cleared the 10,000-hand inclusion threshold, the resulting flop sample is too thin to support stable per-texture estimates, and is excluded from texture and strategy analysis. The Pool Overview retains all four stakes for context.
 
 
-# Part 2: Texture Prevalence
+## Part 2: Texture Prevalence
 
 Pooled across the 2nl, 5nl, and 10nl SRP sample, board textures fall into a clear hierarchy. Unpaired two-tone boards are the most common at 45.98% (95% CI: 45.59%–46.36%), followed by unpaired rainbow at 31.34% (95% CI: 30.99%–31.70%). Paired rainbow and paired two-tone occur at similar rates, 8.69% (95% CI: 8.48%–8.91%) and 8.49% (95% CI: 8.28%–8.71%) respectively. Unpaired monotone boards account for 5.26% (95% CI: 5.09%–5.43%), and tripped rainbow boards are rare at 0.24% (95% CI: 0.20%–0.28%).
 
@@ -39,7 +41,7 @@ These frequencies are nearly identical across the three stakes (visible in the h
 The practical weight of any texture-specific strategy finding in Part 3 depends on both the size of the strategic effect and how often the texture actually occurs. Differences observed on unpaired two-tone or unpaired rainbow boards (which together make up ~77% of flops) carry far more population-level weight than differences observed on tripped boards, where the sample is too thin to support strong claims regardless.
 
 
-# Part 3: Flop Continuation-bet Strategy in SRP by Texture
+## Part 3: Flop Continuation-bet Strategy in SRP by Texture
 
 Position is the dominant strategic driver. Across every stake and every texture in the analyzable range, IP c-bet frequency exceeds OOP by roughly 10–17 percentage points. On the two most common textures (Unpaired 2Tone and Unpaired Rainbow), IP frequencies sit near 60% while OOP frequencies sit in the mid-40s. The IP-OOP gap is larger and more consistent than the gap between any two textures within a single position — the pool's c-bet decision is shaped more by whether they have position than by the board itself. This pattern holds at all three stakes and is robust to sample-size variation. Wilson 95% CIs are tight on the high-volume cells and never overlap between IP and OOP within a texture.
 
