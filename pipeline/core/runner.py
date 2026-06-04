@@ -1,28 +1,3 @@
-# import pandas as pd
-# from db import get_connection
-
-# def run_sql_file(path):
-#     with open(path) as f:
-#         query = f.read()
-#     conn = get_connection()
-#     df = pd.read_sql_query(query, conn)
-#     conn.close()
-#     return df
-
-##### Using sqlalchemy instead of psycopg2 
-
-
-# import pandas as pd
-# from db import get_engine
-
-# def run_sql_file(path, params=None):
-#     with open(path) as f:
-#         query = f.read()
-#     engine = get_engine()
-#     df = pd.read_sql_query(query, engine, params=params)
-#     return df
-
-
 """
 runner.py
 
@@ -36,13 +11,14 @@ Two public helpers:
 """
 
 from decimal import Decimal
+from pathlib import Path
 
 import pandas as pd
 from sqlalchemy import text, bindparam
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.types import Numeric
 
-from db import get_engine  # adjust if your db.py exposes the engine differently
+from pipeline.core.db import get_engine  
 
 
 # ---------------------------------------------------------------------------
@@ -115,3 +91,20 @@ def run_sql_file(path, params=None):
         df = pd.read_sql_query(stmt, conn, params=params)
 
     return df
+
+# ---------------------------------------------------------------------------
+# Pool introspection
+# ---------------------------------------------------------------------------
+def available_stakes():
+    """Return the distinct stakes (bb_size) present in the hand data, as a
+    sorted list of Decimals.
+
+    Pool-wide, not study-specific: reads core/sql/available_stakes.sql. The
+    values use the same ROUND(cl.amt_bb::numeric, 2) expression the studies
+    filter on, so they match what --stake accepts.
+    """
+    sql_path = Path(__file__).resolve().parent / "sql" / "available_stakes.sql"
+    df = run_sql_file(str(sql_path))
+    return df["bb_size"].tolist()
+
+

@@ -1,0 +1,7 @@
+# config/settings.yaml
+# Non-secret defaults. Secrets (DB credentials) stay in .env, never here.
+# Note: available stakes are read live from the database, not configured here.
+
+# Default minimum-hands threshold for outputs that use it.
+default_min_hands: 10000
+
