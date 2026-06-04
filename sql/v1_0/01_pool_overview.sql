@@ -23,13 +23,22 @@ WITH base_hands AS (
     JOIN cash_limit cl
         ON chs.id_limit = cl.id_limit
 ),
+-- eligible_stakes AS (
+--     SELECT
+--         bb_size
+--     FROM base_hands
+--     GROUP BY
+--         bb_size
+--     HAVING COUNT(*) >= 10000
+-- ),
 eligible_stakes AS (
     SELECT
         bb_size
     FROM base_hands
+    WHERE (:all_stakes OR bb_size = ANY(:stake_list))
     GROUP BY
         bb_size
-    HAVING COUNT(*) >= 10000
+    HAVING COUNT(*) >= :min_hands
 ),
 hand_pool AS (
     SELECT

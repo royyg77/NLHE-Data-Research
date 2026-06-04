@@ -36,7 +36,7 @@ WITH base AS (
         ON chs.id_limit = cl.id_limit
     JOIN cash_hand_player_statistics chps
         ON chs.id_hand = chps.id_hand
-    WHERE ROUND(cl.amt_bb::numeric, 2) IN (0.02, 0.05, 0.10)
+    WHERE (:all_stakes OR ROUND(cl.amt_bb::numeric, 2) = ANY(:stake_list))
       AND CHAR_LENGTH(chs.str_aggressors_p::text) = 2
       AND chps.flg_f_cbet_opp = TRUE
       AND chs.card_1 BETWEEN 1 AND 52
