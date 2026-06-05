@@ -20,7 +20,6 @@ from sqlalchemy.types import Numeric
 
 from pipeline.core.db import get_engine  
 
-
 # ---------------------------------------------------------------------------
 # Stake translation
 # ---------------------------------------------------------------------------

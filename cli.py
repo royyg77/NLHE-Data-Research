@@ -14,6 +14,8 @@ import argparse
 from pipeline.core.config import default_min_hands
 from pipeline.core.runner import available_stakes
 from pipeline.registry import get_study, studies_by_category, study_names
+from pipeline.core.io import save_results
+
 
 
 DEFAULT_MIN_HANDS = default_min_hands()
@@ -39,11 +41,12 @@ def list_studies():
     print("Use --output <name> to run a single output (default: all).")
 
 
-def run_study(study_name, stake_input, min_hands, output_names):
+def run_study(study_name, stake_input, min_hands, output_names, save=False):
     study = get_study(study_name)
 
     # Decide which outputs to run.
     selected = output_names if output_names else list(study.outputs)
+    outputs = {}
 
     for name in selected:
         print(f"\n=== {name} ===")
@@ -51,6 +54,11 @@ def run_study(study_name, stake_input, min_hands, output_names):
         # min_hands here is harmless for outputs that don't use it.
         df = study.run(name, stake_input, min_hands=min_hands)
         print(df.to_string(index=False))
+        outputs[name] = df
+    
+    if save:
+        out_dir = save_results(study.name, outputs)
+        print(f"\nResults saved to {out_dir}")
 
 
 def main():
@@ -75,6 +83,12 @@ def main():
         help="Show available studies, outputs, and stakes, then exit.",
     )
 
+    parser.add_argument(
+        "--save",
+        action="store_true",
+        help="Save results to results/<study>/latest/ (default: results are printed only).",
+    )
+
     args = parser.parse_args()
 
     if args.list:
@@ -96,11 +110,10 @@ def main():
                 f"Valid: {', '.join(study.outputs)}"
             )
 
-    run_study(args.study, args.stake, args.min_hands, args.output)
+    run_study(args.study, args.stake, args.min_hands, args.output, save=args.save)
 
 
 if __name__ == "__main__":
     main()
 
 
-    

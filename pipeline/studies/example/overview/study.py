@@ -16,6 +16,7 @@ from pipeline.core.base import Study
 from pipeline.core.runner import run_sql_file, resolve_stakes
 
 
+
 def _wilson_ci(k, n, z=1.96):
     if n == 0:
         return (np.nan, np.nan)

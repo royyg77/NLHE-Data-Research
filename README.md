@@ -49,7 +49,6 @@ NLHE-Data-Research/
 │       └── .../
 ├── cli.py                                # command-line entry point (never changes as studies grow)
 ├── dashboard.py                          # Streamlit dashboard (in progress; never changes as studies grow)
-├── notebooks/                            # exploratory notebooks (import from pipeline/)
 ├── results/                              # run outputs (git-ignored)
 ├── .env.example                          # template for database credentials (copy to .env)
 └── requirements.txt
@@ -166,12 +165,6 @@ charts directly — no command line needed. The study plotting functions are alr
 Streamlit-compatible in preparation for this; `dashboard.py` itself is not yet
 implemented.
 
-### Notebooks
-
-The notebooks in `notebooks/v1_0/` are kept for open-ended exploration. They import the
-same functions from `pipeline/`, so any study available in the CLI or dashboard can be
-called and extended interactively.
-
 ---
 
 ## Available Studies
@@ -225,12 +218,23 @@ category and is listed on its own.
 
 ## Version History
 
-- **v1.0**
+- **v2.0** — Pipeline rearchitecture
+  - Restructured the project into a parameterized pipeline: shared `pipeline/core/`
+    (DB connection, query runner, I/O) plus self-contained study modules under
+    `pipeline/studies/`
+  - Registry auto-discovers studies and groups them by category, so adding a study
+    requires no changes to the front-ends or core
+  - CLI front-end driven by the registry (Streamlit dashboard in progress)
+  - Study plotting refactored to be Streamlit-compatible
+  - Carries over the v1.0 flop c-bet study (continuation-bet frequency and sizing by
+    board texture, with pool-overview and texture-frequency outputs)
+  - Subsequent studies ship as v2.x, incrementing per study added
+
+- **v1.0** — Initial flat layout (`main` branch)
   - Standalone flop c-bet strategy study: continuation-bet frequency and sizing by board
     texture, with supporting pool-overview and texture-frequency outputs
-  - Parameterized pipeline with a CLI front-end (Streamlit dashboard in progress)
-  - Study-module architecture: shared core plus self-contained study folders
-  - Results export workflow and exploratory notebooks
+  - Files organized manually in the project root; exploratory notebooks and a results
+    export workflow
 
 ---
 

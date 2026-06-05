@@ -17,6 +17,12 @@ import pandas as pd
 from pipeline.core.base import Study
 from pipeline.core.runner import run_sql_file, resolve_stakes
 
+from pipeline.studies.postflop.flop_cbet.plots import (
+    cbet_frequency_by_texture,
+    cbet_size_mix,
+)
+
+
 
 def _wilson_ci(k, n, z=1.96):
     if n == 0:
@@ -43,6 +49,16 @@ class FlopCbetStudy(Study):
         # cell 26 prep: strategy_agg + Wilson CIs on the c-bet frequency
         "strategy_agg_ci": {"sql": "cbet_strategy.sql", "params": ["stake"]},
     }
+
+    plots = {
+        "C-bet frequency by texture": {
+            "fn": cbet_frequency_by_texture, "output": "strategy_agg_ci",
+        },
+        "C-bet size mix": {
+            "fn": cbet_size_mix, "output": "strategy_agg",
+        },
+    }
+
 
     # ------------------------------------------------------------------
     # shared SQL runner

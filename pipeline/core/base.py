@@ -25,6 +25,12 @@ class Study:
     # another not -- the runner only passes what each output declares.
     outputs = {}
 
+    # --- what the study can visualize (front-ends read this to render charts) ---
+    # label -> {"fn": <function taking a DataFrame, returning a Plotly figure>,
+    #           "output": <which outputs[] name to feed that function>}
+    # Empty by default: a study with no plots simply renders its tables.
+    plots = {}
+
     def sql_dir(self):
         """Absolute path to this study's sql/ folder, resolved from the
         module file's own location so it works regardless of cwd."""
