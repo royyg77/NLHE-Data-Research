@@ -99,12 +99,6 @@ Common issues:
 
 ---
 
-## Authors
-
-For questions about the project or collaboration opportunities, contact royguo77@gmail.com
-
----
-
 ## License
 
 License information to be added.
